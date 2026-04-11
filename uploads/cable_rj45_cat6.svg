@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+  <rect width="600" height="400" fill="#0d1117"/>
+  <!-- Cable body (wavy) -->
+  <path d="M100 200 C130 170 160 230 200 200 C240 170 270 230 310 200 C350 170 380 230 420 200 C450 180 470 200 500 200" stroke="#2980b9" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <path d="M100 200 C130 170 160 230 200 200 C240 170 270 230 310 200 C350 170 380 230 420 200 C450 180 470 200 500 200" stroke="#3498db" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <!-- Cable sheen -->
+  <path d="M100 196 C130 166 160 226 200 196 C240 166 270 226 310 196 C350 166 380 226 420 196 C450 176 470 196 500 196" stroke="rgba(255,255,255,0.12)" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <!-- Left connector (RJ45) -->
+  <rect x="60" y="183" width="46" height="34" rx="3" fill="#ddd" stroke="#bbb" stroke-width="1.5"/>
+  <rect x="66" y="191" width="34" height="18" rx="2" fill="#aaa"/>
+  <!-- pins left -->
+  <rect x="68" y="193" width="3" height="14" rx="1" fill="#f90"/>
+  <rect x="73" y="193" width="3" height="14" rx="1" fill="#fff"/>
+  <rect x="78" y="193" width="3" height="14" rx="1" fill="#f90"/>
+  <rect x="83" y="193" width="3" height="14" rx="1" fill="#00f"/>
+  <rect x="88" y="193" width="3" height="14" rx="1" fill="#00f"/>
+  <rect x="93" y="193" width="3" height="14" rx="1" fill="#0f0"/>
+  <rect x="98" y="193" width="3" height="14" rx="1" fill="#fff"/>
+  <!-- clip left -->
+  <rect x="72" y="210" width="20" height="6" rx="2" fill="#888"/>
+
+  <!-- Right connector (RJ45) -->
+  <rect x="494" y="183" width="46" height="34" rx="3" fill="#ddd" stroke="#bbb" stroke-width="1.5"/>
+  <rect x="500" y="191" width="34" height="18" rx="2" fill="#aaa"/>
+  <!-- pins right -->
+  <rect x="502" y="193" width="3" height="14" rx="1" fill="#f90"/>
+  <rect x="507" y="193" width="3" height="14" rx="1" fill="#fff"/>
+  <rect x="512" y="193" width="3" height="14" rx="1" fill="#f90"/>
+  <rect x="517" y="193" width="3" height="14" rx="1" fill="#00f"/>
+  <rect x="522" y="193" width="3" height="14" rx="1" fill="#00f"/>
+  <rect x="527" y="193" width="3" height="14" rx="1" fill="#0f0"/>
+  <rect x="532" y="193" width="3" height="14" rx="1" fill="#fff"/>
+  <!-- clip right -->
+  <rect x="508" y="210" width="20" height="6" rx="2" fill="#888"/>
+
+  <!-- CAT6 label tag -->
+  <rect x="265" y="155" width="70" height="24" rx="4" fill="#1a1a1a" stroke="#c8ff00" stroke-width="1"/>
+  <text x="300" y="171" font-family="monospace" font-size="11" fill="#c8ff00" text-anchor="middle" font-weight="bold">CAT 6</text>
+
+  <!-- label -->
+  <text x="300" y="310" font-family="Arial, sans-serif" font-size="20" fill="#c8ff00" text-anchor="middle" font-weight="bold">Câble RJ45 Cat6</text>
+  <text x="300" y="334" font-family="Arial, sans-serif" font-size="13" fill="#666" text-anchor="middle">Ethernet 10 Gbps — 2m</text>
+</svg>

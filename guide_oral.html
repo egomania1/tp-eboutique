@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Guide Oral - eBoutique PHP MVC</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; color: #222; line-height: 1.7; }
+        h1 { background: #1a1a2e; color: #c8ff00; padding: 20px; border-radius: 8px; }
+        h2 { background: #16213e; color: #c8ff00; padding: 10px 15px; border-radius: 6px; margin-top: 40px; }
+        h3 { color: #1a1a2e; border-left: 4px solid #c8ff00; padding-left: 10px; }
+        pre { background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; }
+        .keyword { color: #569cd6; }
+        .ok { color: green; font-weight: bold; }
+        .box { background: #f0f8e8; border: 1px solid #c8ff00; border-radius: 6px; padding: 15px; margin: 10px 0; }
+        .oral { background: #fff8e1; border-left: 4px solid #ffa000; padding: 12px 15px; margin: 10px 0; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th { background: #1a1a2e; color: #c8ff00; padding: 10px; }
+        td { padding: 8px 10px; border-bottom: 1px solid #ddd; }
+        tr:nth-child(even) { background: #f9f9f9; }
+        @media print { body { margin: 20px; } }
+    </style>
+</head>
+<body>
+
+<h1>Guide Oral — eBoutique PHP MVC</h1>
+<p><strong>Projet :</strong> Application e-boutique en PHP natif, architecture MVC</p>
+<p><strong>Objectif de ce guide :</strong> Savoir expliquer chaque fonctionnalité et le code correspondant à l'oral.</p>
+
+<!-- ============================================================ -->
+<h2>1. Architecture MVC — Comment est organisé le projet ?</h2>
+
+<div class="box">
+    <strong>MVC = Modèle / Vue / Contrôleur</strong><br>
+    C'est une façon d'organiser le code en 3 couches séparées pour que chaque partie ait un rôle précis.
+</div>
+
+<table>
+    <tr>
+        <th>Dossier</th>
+        <th>Rôle</th>
+        <th>Exemple</th>
+    </tr>
+    <tr>
+        <td><strong>models/</strong></td>
+        <td>Accès à la base de données uniquement</td>
+        <td>ProductModel.php, UserModel.php</td>
+    </tr>
+    <tr>
+        <td><strong>controllers/</strong></td>
+        <td>Logique métier, traitement des formulaires</td>
+        <td>AuthController.php, CartController.php</td>
+    </tr>
+    <tr>
+        <td><strong>views/</strong></td>
+        <td>Affichage HTML uniquement</td>
+        <td>catalogue_simple.php, cart.php</td>
+    </tr>
+    <tr>
+        <td><strong>index.php</strong></td>
+        <td>Routeur — redirige vers le bon contrôleur</td>
+        <td>?page=login → AuthController</td>
+    </tr>
+</table>
+
+<div class="oral">
+    💬 <strong>À dire à l'oral :</strong> "J'ai utilisé une architecture MVC pour séparer les responsabilités.
+    Les modèles font les requêtes SQL, les contrôleurs gèrent la logique, et les vues affichent uniquement le HTML.
+    Le fichier index.php joue le rôle de routeur : il lit le paramètre <em>page</em> dans l'URL et charge le bon contrôleur."
+</div>
+
+<h3>Le routeur — index.php</h3>
+<pre>
+$page = isset($_GET['page']) ? $_GET['page'] : 'home';
+
+switch ($page) {
+    case 'login':
+        require_once ROOT . 'controllers/AuthController.php';
+        break;
+    case 'cart':
+        require_once ROOT . 'controllers/CartController.php';
+        break;
+    // ...
+}
+</pre>
+<div class="oral">💬 "On récupère le paramètre <em>page</em> dans l'URL. Si rien n'est précisé, on affiche 'home'. Ensuite le switch charge le bon contrôleur."</div>
+
+
+<!-- ============================================================ -->
+<h2>2. Connexion à la base de données — config/db.php</h2>
+
+<pre>
+$pdo = new PDO("mysql:host=localhost;dbname=eboutique;charset=utf8", "root", "");
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+</pre>
+
+<div class="oral">
+    💬 "J'utilise PDO pour me connecter à MySQL. PDO est une interface sécurisée qui permet de faire des
+    requêtes préparées. Le setAttribute active l'affichage des erreurs. La variable $pdo est disponible dans
+    tous les fichiers grâce au require_once dans index.php."
+</div>
+
+
+<!-- ============================================================ -->
+<h2>3. Inscription et Connexion — AuthController.php</h2>
+
+<h3>Inscription</h3>
+<pre>
+if (isset($_POST['inscription'])) {
+    $nom   = trim($_POST['nom']);
+    $email = trim($_POST['email']);
+
+    if (empty($nom) || empty($email) || empty($password)) {
+        $erreur = "Tous les champs sont obligatoires.";
+    } elseif (emailExisteDeja($pdo, $email)) {
+        $erreur = "Cet email est déjà utilisé.";
+    } else {
+        creerUtilisateur($pdo, $nom, $email, $password, $role);
+        header('Location: index.php?page=login&message=compte_cree');
+        exit();
+    }
+}
+</pre>
+<div class="oral">💬 "Quand le formulaire est soumis, on vérifie que les champs ne sont pas vides avec empty().
+On vérifie aussi que l'email n'existe pas déjà en base. Si tout est bon, on appelle la fonction creerUtilisateur() du modèle."</div>
+
+<h3>Mot de passe hashé — UserModel.php</h3>
+<pre>
+$passwordHashe = password_hash($password, PASSWORD_DEFAULT);
+</pre>
+<div class="oral">💬 "On ne stocke jamais un mot de passe en clair en base de données.
+password_hash() le transforme en une chaîne illisible. Pour vérifier, on utilise password_verify() qui compare
+le mot de passe tapé avec le hash stocké."</div>
+
+<h3>Connexion</h3>
+<pre>
+$utilisateur = trouverUtilisateurParEmail($pdo, $email);
+
+if ($utilisateur && password_verify($password, $utilisateur['password'])) {
+    $_SESSION['user_id']   = $utilisateur['id'];
+    $_SESSION['user_nom']  = $utilisateur['nom'];
+    $_SESSION['user_role'] = $utilisateur['role'];
+    header('Location: index.php?page=home');
+    exit();
+}
+</pre>
+<div class="oral">💬 "On cherche l'utilisateur par son email. Si il existe et que le mot de passe correspond,
+on stocke ses infos dans la session. La session permet de garder ces informations sur toutes les pages."</div>
+
+
+<!-- ============================================================ -->
+<h2>4. Sessions — Gestion de l'utilisateur connecté</h2>
+
+<pre>
+// Démarrer la session (dans index.php)
+session_start();
+
+// Stocker une info
+$_SESSION['user_id'] = $utilisateur['id'];
+
+// Vérifier si connecté
+if (!isset($_SESSION['user_id'])) {
+    header('Location: index.php?page=login');
+    exit();
+}
+
+// Détruire la session (déconnexion)
+session_destroy();
+</pre>
+
+<div class="oral">💬 "La session PHP permet de conserver des données entre les différentes pages du site.
+session_start() doit être appelé au début de chaque page. On vérifie si l'utilisateur est connecté avec
+isset($_SESSION['user_id']). Pour se déconnecter, session_destroy() supprime toutes les données."</div>
+
+
+<!-- ============================================================ -->
+<h2>5. Requêtes préparées — Sécurité SQL</h2>
+
+<pre>
+// Exemple dans UserModel.php
+$req = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+$req->execute([':email' => $email]);
+$utilisateur = $req->fetch();
+</pre>
+
+<div class="oral">💬 "Les requêtes préparées protègent contre les injections SQL. Au lieu d'insérer directement
+les variables dans la requête (ce qui serait dangereux), on utilise des paramètres avec ':email'.
+PDO remplace ces paramètres de façon sécurisée lors de l'exécution."</div>
+
+
+<!-- ============================================================ -->
+<h2>6. Gestion des rôles — Client / Vendeur</h2>
+
+<pre>
+// Stocké dans la session à la connexion
+$_SESSION['user_role'] = $utilisateur['role']; // 'client' ou 'vendeur'
+
+// Dans la vue : afficher le bouton vendeur seulement si vendeur
+if ($_SESSION['user_role'] === 'vendeur') {
+    echo '&lt;a href="index.php?page=add_product"&gt;+ Ajouter un produit&lt;/a&gt;';
+}
+
+// Dans add_product.php : bloquer l'accès si pas vendeur
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'vendeur') {
+    header('Location: index.php?page=home');
+    exit();
+}
+</pre>
+
+<div class="oral">💬 "Le rôle est stocké en session à la connexion. On l'utilise pour restreindre l'accès :
+un client ne peut pas accéder à la page d'ajout de produit. Si quelqu'un essaie d'accéder directement à l'URL,
+il est redirigé vers l'accueil."</div>
+
+
+<!-- ============================================================ -->
+<h2>7. Catalogue de produits — ProductController + ProductModel</h2>
+
+<h3>Requête SQL avec JOIN</h3>
+<pre>
+// ProductModel.php
+function getProduitsParCategorie($pdo) {
+    $req = $pdo->prepare("
+        SELECT p.*, c.nom AS categorie_nom
+        FROM products p
+        JOIN categories c ON p.categorie_id = c.id
+        ORDER BY c.nom, p.nom
+    ");
+    $req->execute();
+    $tous = $req->fetchAll();
+
+    // On regroupe les produits par catégorie
+    $groupes = [];
+    foreach ($tous as $p) {
+        $groupes[$p['categorie_nom']][] = $p;
+    }
+    return $groupes;
+}
+</pre>
+
+<div class="oral">💬 "On utilise un JOIN pour récupérer les produits avec le nom de leur catégorie en une seule requête.
+Ensuite on regroupe les produits dans un tableau indexé par catégorie avec foreach. Ce tableau est passé à la vue
+qui l'affiche catégorie par catégorie."</div>
+
+<h3>Affichage dans la vue</h3>
+<pre>
+foreach ($produitsParCategorie as $categorie => $produits):
+    echo '&lt;h2&gt;' . htmlspecialchars($categorie) . '&lt;/h2&gt;';
+    foreach ($produits as $p):
+        echo htmlspecialchars($p['nom']);
+    endforeach;
+endforeach;
+</pre>
+<div class="oral">💬 "htmlspecialchars() protège contre les attaques XSS en transformant les caractères spéciaux
+HTML en entités. On l'applique sur toutes les données venant de la base avant de les afficher."</div>
+
+
+<!-- ============================================================ -->
+<h2>8. Upload d'image — Ajout de produit</h2>
+
+<pre>
+// ProductController.php
+if ($_FILES['image']['error'] === 0) {
+
+    $extension = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+    $extensionsAutorisees = ['jpg', 'jpeg', 'png', 'gif'];
+
+    if (!in_array($extension, $extensionsAutorisees)) {
+        $erreur = "Seules les images JPG, PNG et GIF sont acceptées.";
+
+    } elseif ($_FILES['image']['size'] > 2 * 1024 * 1024) {
+        $erreur = "L'image ne doit pas dépasser 2 Mo.";
+
+    } else {
+        $nomUnique = uniqid() . '.' . $extension;
+        move_uploaded_file($_FILES['image']['tmp_name'], ROOT . 'uploads/' . $nomUnique);
+    }
+}
+</pre>
+
+<div class="oral">💬 "$_FILES contient les informations du fichier envoyé. On vérifie d'abord l'extension avec pathinfo()
+pour n'accepter que les images. On vérifie la taille (2 Mo max). uniqid() génère un nom unique pour éviter
+d'écraser un fichier existant. move_uploaded_file() déplace le fichier temporaire vers le dossier uploads/."</div>
+
+
+<!-- ============================================================ -->
+<h2>9. Panier — CartController.php</h2>
+
+<pre>
+// Initialisation du panier en session
+if (!isset($_SESSION['panier'])) {
+    $_SESSION['panier'] = [];
+}
+
+// Ajouter un produit
+if (isset($_SESSION['panier'][$produit_id])) {
+    $_SESSION['panier'][$produit_id]['quantite']++;
+} else {
+    $_SESSION['panier'][$produit_id] = [
+        'nom'      => $produit['nom'],
+        'prix'     => $produit['prix'],
+        'quantite' => 1
+    ];
+}
+
+// Calculer le total
+$total = 0;
+foreach ($_SESSION['panier'] as $item) {
+    $total += $item['prix'] * $item['quantite'];
+}
+</pre>
+
+<div class="oral">💬 "Le panier est stocké en session sous forme de tableau. La clé du tableau c'est l'ID du produit.
+Si le produit est déjà dans le panier, on augmente juste la quantité. Sinon on l'ajoute avec quantité 1.
+Le total est calculé dans le contrôleur avec une boucle foreach : prix × quantité pour chaque produit."</div>
+
+
+<!-- ============================================================ -->
+<h2>10. Validation de commande — OrderController.php</h2>
+
+<pre>
+if (isset($_POST['valider_commande'])) {
+
+    // Calcul du total
+    $total = 0;
+    foreach ($_SESSION['panier'] as $item) {
+        $total += $item['prix'] * $item['quantite'];
+    }
+
+    // Création de la commande en base
+    $commande_id = creerCommande($pdo, $_SESSION['user_id'], $total);
+
+    // Ajout de chaque produit dans commande_items
+    foreach ($_SESSION['panier'] as $produit_id => $item) {
+        ajouterItemCommande($pdo, $commande_id, $produit_id, $item['nom'], $item['prix'], $item['quantite']);
+    }
+
+    // On vide le panier
+    $_SESSION['panier'] = [];
+
+    header('Location: index.php?page=confirmation&commande_id=' . $commande_id);
+    exit();
+}
+</pre>
+
+<div class="oral">💬 "Quand le client clique sur Valider, on calcule le total, on crée la commande en base avec
+l'ID de l'utilisateur, puis on enregistre chaque produit dans la table commande_items. On vide ensuite le panier
+et on redirige vers la page de confirmation."</div>
+
+
+<!-- ============================================================ -->
+<h2>Récapitulatif des exigences du TP</h2>
+
+<table>
+    <tr>
+        <th>Exigence</th>
+        <th>Fichier(s)</th>
+        <th>Statut</th>
+    </tr>
+    <tr><td>Architecture MVC</td><td>index.php + tous les dossiers</td><td class="ok">✅</td></tr>
+    <tr><td>PHP + PDO + requêtes préparées</td><td>config/db.php + tous les models</td><td class="ok">✅</td></tr>
+    <tr><td>Mot de passe hashé</td><td>models/UserModel.php</td><td class="ok">✅</td></tr>
+    <tr><td>Sessions utilisateur</td><td>index.php + AuthController.php</td><td class="ok">✅</td></tr>
+    <tr><td>Inscription / Connexion / Déconnexion</td><td>AuthController.php + views/login + register</td><td class="ok">✅</td></tr>
+    <tr><td>Page profil (nom, email, rôle)</td><td>views/profile.php</td><td class="ok">✅</td></tr>
+    <tr><td>Gestion des rôles client / vendeur</td><td>AuthController + add_product.php</td><td class="ok">✅</td></tr>
+    <tr><td>Vendeur ajoute des produits</td><td>ProductController.php + add_product.php</td><td class="ok">✅</td></tr>
+    <tr><td>Upload image (type + taille vérifiés)</td><td>controllers/ProductController.php</td><td class="ok">✅</td></tr>
+    <tr><td>Client ajoute au panier</td><td>CartController.php</td><td class="ok">✅</td></tr>
+    <tr><td>Total du panier dynamique</td><td>CartController.php + views/cart.php</td><td class="ok">✅</td></tr>
+    <tr><td>Aucun SQL dans les vues</td><td>Toutes les vues</td><td class="ok">✅</td></tr>
+    <tr><td>Aucun traitement formulaire dans les vues</td><td>Toutes les vues</td><td class="ok">✅</td></tr>
+    <tr><td>Tables users, products, categories</td><td>eboutique.sql</td><td class="ok">✅</td></tr>
+    <tr><td>10+ produits dans 5 catégories</td><td>import_produits.sql (12 produits)</td><td class="ok">✅</td></tr>
+</table>
+
+<br>
+<p style="text-align:center; color:#999; font-size:0.85rem;">
+    Pour créer le PDF : ouvre ce fichier dans ton navigateur → Ctrl+P → Enregistrer en PDF
+</p>
+
+</body>
+</html>

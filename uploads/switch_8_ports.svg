@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+  <rect width="600" height="400" fill="#0d1117"/>
+  <!-- Switch body shadow -->
+  <rect x="82" y="158" width="436" height="120" rx="10" fill="#050505" opacity="0.5"/>
+  <!-- Switch body -->
+  <rect x="78" y="150" width="444" height="118" rx="10" fill="#1c1c1e" stroke="#2e2e32" stroke-width="1.5"/>
+  <rect x="84" y="156" width="432" height="106" rx="8" fill="#222226"/>
+  <!-- Front panel gradient -->
+  <rect x="84" y="156" width="432" height="30" rx="8" fill="rgba(255,255,255,0.03)"/>
+
+  <!-- 8 ethernet ports -->
+  <g>
+    <!-- Port 1 -->
+    <rect x="98" y="178" width="42" height="34" rx="3" fill="#111" stroke="#333" stroke-width="1"/>
+    <rect x="103" y="183" width="32" height="24" rx="2" fill="#0a0a0a"/>
+    <circle cx="110" cy="172" r="3" fill="#00ff00" opacity="0.9"/>
+    <circle cx="122" cy="172" r="3" fill="#ff8800" opacity="0.7"/>
+    <text x="119" y="228" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">1</text>
+    <!-- Port 2 -->
+    <rect x="148" y="178" width="42" height="34" rx="3" fill="#111" stroke="#333" stroke-width="1"/>
+    <rect x="153" y="183" width="32" height="24" rx="2" fill="#0a0a0a"/>
+    <circle cx="160" cy="172" r="3" fill="#00ff00" opacity="0.9"/>
+    <circle cx="172" cy="172" r="3" fill="#555" opacity="0.5"/>
+    <text x="169" y="228" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">2</text>
+    <!-- Port 3 -->
+    <rect x="198" y="178" width="42" height="34" rx="3" fill="#111" stroke="#333" stroke-width="1"/>
+    <rect x="203" y="183" width="32" height="24" rx="2" fill="#0a0a0a"/>
+    <circle cx="210" cy="172" r="3" fill="#00ff00" opacity="0.9"/>
+    <circle cx="222" cy="172" r="3" fill="#ff8800" opacity="0.7"/>
+    <text x="219" y="228" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">3</text>
+    <!-- Port 4 -->
+    <rect x="248" y="178" width="42" height="34" rx="3" fill="#111" stroke="#333" stroke-width="1"/>
+    <rect x="253" y="183" width="32" height="24" rx="2" fill="#0a0a0a"/>
+    <circle cx="260" cy="172" r="3" fill="#00ff00" opacity="0.9"/>
+    <circle cx="272" cy="172" r="3" fill="#555" opacity="0.5"/>
+    <text x="269" y="228" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">4</text>
+    <!-- Port 5 -->
+    <rect x="298" y="178" width="42" height="34" rx="3" fill="#111" stroke="#333" stroke-width="1"/>
+    <rect x="303" y="183" width="32" height="24" rx="2" fill="#0a0a0a"/>
+    <circle cx="310" cy="172" r="3" fill="#00ff00" opacity="0.9"/>
+    <circle cx="322" cy="172" r="3" fill="#ff8800" opacity="0.7"/>
+    <text x="319" y="228" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">5</text>
+    <!-- Port 6 -->
+    <rect x="348" y="178" width="42" height="34" rx="3" fill="#111" stroke="#333" stroke-width="1"/>
+    <rect x="353" y="183" width="32" height="24" rx="2" fill="#0a0a0a"/>
+    <circle cx="360" cy="172" r="3" fill="#00ff00" opacity="0.9"/>
+    <circle cx="372" cy="172" r="3" fill="#555" opacity="0.5"/>
+    <text x="369" y="228" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">6</text>
+    <!-- Port 7 -->
+    <rect x="398" y="178" width="42" height="34" rx="3" fill="#111" stroke="#333" stroke-width="1"/>
+    <rect x="403" y="183" width="32" height="24" rx="2" fill="#0a0a0a"/>
+    <circle cx="410" cy="172" r="3" fill="#00ff00" opacity="0.9"/>
+    <circle cx="422" cy="172" r="3" fill="#ff8800" opacity="0.7"/>
+    <text x="419" y="228" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">7</text>
+    <!-- Port 8 -->
+    <rect x="448" y="178" width="42" height="34" rx="3" fill="#111" stroke="#333" stroke-width="1"/>
+    <rect x="453" y="183" width="32" height="24" rx="2" fill="#0a0a0a"/>
+    <circle cx="460" cy="172" r="3" fill="#00ff00" opacity="0.9"/>
+    <circle cx="472" cy="172" r="3" fill="#555" opacity="0.5"/>
+    <text x="469" y="228" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">8</text>
+  </g>
+
+  <!-- Power LED -->
+  <circle cx="500" cy="220" r="5" fill="#00ff00" opacity="0.85"/>
+  <text x="500" y="237" font-family="monospace" font-size="7" fill="#555" text-anchor="middle">PWR</text>
+
+  <!-- Power port -->
+  <circle cx="510" cy="248" r="7" fill="#111" stroke="#444" stroke-width="1.5"/>
+  <circle cx="510" cy="248" r="3" fill="#222"/>
+
+  <!-- Brand label -->
+  <text x="130" y="248" font-family="monospace" font-size="10" fill="#c8ff00" opacity="0.7">8-PORT GIGABIT SWITCH</text>
+
+  <!-- label -->
+  <text x="300" y="320" font-family="Arial, sans-serif" font-size="20" fill="#c8ff00" text-anchor="middle" font-weight="bold">Switch 8 Ports</text>
+  <text x="300" y="344" font-family="Arial, sans-serif" font-size="13" fill="#666" text-anchor="middle">Gigabit Ethernet — 1000 Mbps</text>
+</svg>

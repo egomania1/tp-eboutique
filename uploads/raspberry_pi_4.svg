@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+  <rect width="600" height="400" fill="#0d1117"/>
+  <!-- Board -->
+  <rect x="120" y="70" width="360" height="240" rx="12" fill="#1a3a1a" stroke="#2d6a2d" stroke-width="2"/>
+  <!-- PCB traces -->
+  <line x1="140" y1="110" x2="460" y2="110" stroke="#1f5c1f" stroke-width="1" opacity="0.5"/>
+  <line x1="140" y1="150" x2="460" y2="150" stroke="#1f5c1f" stroke-width="1" opacity="0.5"/>
+  <line x1="140" y1="190" x2="460" y2="190" stroke="#1f5c1f" stroke-width="1" opacity="0.5"/>
+  <line x1="140" y1="230" x2="460" y2="230" stroke="#1f5c1f" stroke-width="1" opacity="0.5"/>
+  <line x1="140" y1="270" x2="460" y2="270" stroke="#1f5c1f" stroke-width="1" opacity="0.5"/>
+  <line x1="185" y1="80" x2="185" y2="300" stroke="#1f5c1f" stroke-width="1" opacity="0.5"/>
+  <line x1="245" y1="80" x2="245" y2="300" stroke="#1f5c1f" stroke-width="1" opacity="0.5"/>
+  <line x1="305" y1="80" x2="305" y2="300" stroke="#1f5c1f" stroke-width="1" opacity="0.5"/>
+  <line x1="365" y1="80" x2="365" y2="300" stroke="#1f5c1f" stroke-width="1" opacity="0.5"/>
+  <line x1="425" y1="80" x2="425" y2="300" stroke="#1f5c1f" stroke-width="1" opacity="0.5"/>
+  <!-- CPU chip -->
+  <rect x="228" y="145" width="84" height="84" rx="4" fill="#111" stroke="#c8ff00" stroke-width="1.5"/>
+  <rect x="238" y="155" width="64" height="64" rx="2" fill="#1a1a1a"/>
+  <text x="270" y="191" font-family="monospace" font-size="12" fill="#c8ff00" text-anchor="middle" font-weight="bold">BCM</text>
+  <text x="270" y="207" font-family="monospace" font-size="10" fill="#c8ff00" text-anchor="middle">2711</text>
+  <!-- chip pins -->
+  <line x1="228" y1="162" x2="218" y2="162" stroke="#c8ff00" stroke-width="1.2"/>
+  <line x1="228" y1="175" x2="218" y2="175" stroke="#c8ff00" stroke-width="1.2"/>
+  <line x1="228" y1="188" x2="218" y2="188" stroke="#c8ff00" stroke-width="1.2"/>
+  <line x1="228" y1="201" x2="218" y2="201" stroke="#c8ff00" stroke-width="1.2"/>
+  <line x1="228" y1="214" x2="218" y2="214" stroke="#c8ff00" stroke-width="1.2"/>
+  <line x1="312" y1="162" x2="322" y2="162" stroke="#c8ff00" stroke-width="1.2"/>
+  <line x1="312" y1="175" x2="322" y2="175" stroke="#c8ff00" stroke-width="1.2"/>
+  <line x1="312" y1="188" x2="322" y2="188" stroke="#c8ff00" stroke-width="1.2"/>
+  <line x1="312" y1="201" x2="322" y2="201" stroke="#c8ff00" stroke-width="1.2"/>
+  <line x1="312" y1="214" x2="322" y2="214" stroke="#c8ff00" stroke-width="1.2"/>
+  <!-- GPIO pins (left side) -->
+  <rect x="127" y="85" width="8" height="55" rx="1" fill="#888"/>
+  <rect x="139" y="85" width="8" height="55" rx="1" fill="#888"/>
+  <!-- USB ports (right) -->
+  <rect x="443" y="95" width="32" height="19" rx="2" fill="#333" stroke="#555" stroke-width="1"/>
+  <text x="459" y="109" font-family="monospace" font-size="7" fill="#888" text-anchor="middle">USB</text>
+  <rect x="443" y="120" width="32" height="19" rx="2" fill="#333" stroke="#555" stroke-width="1"/>
+  <text x="459" y="134" font-family="monospace" font-size="7" fill="#888" text-anchor="middle">USB</text>
+  <rect x="443" y="145" width="32" height="19" rx="2" fill="#00008b" stroke="#0000cd" stroke-width="1"/>
+  <text x="459" y="159" font-family="monospace" font-size="7" fill="#7af" text-anchor="middle">3.0</text>
+  <rect x="443" y="170" width="32" height="19" rx="2" fill="#00008b" stroke="#0000cd" stroke-width="1"/>
+  <text x="459" y="184" font-family="monospace" font-size="7" fill="#7af" text-anchor="middle">3.0</text>
+  <!-- Ethernet -->
+  <rect x="443" y="200" width="32" height="26" rx="2" fill="#444" stroke="#666" stroke-width="1"/>
+  <text x="459" y="217" font-family="monospace" font-size="6" fill="#aaa" text-anchor="middle">ETH</text>
+  <!-- HDMI ports -->
+  <rect x="170" y="298" width="24" height="12" rx="1" fill="#222" stroke="#666" stroke-width="1"/>
+  <text x="182" y="307" font-family="monospace" font-size="6" fill="#888" text-anchor="middle">μHDMI</text>
+  <rect x="200" y="298" width="24" height="12" rx="1" fill="#222" stroke="#666" stroke-width="1"/>
+  <text x="212" y="307" font-family="monospace" font-size="6" fill="#888" text-anchor="middle">μHDMI</text>
+  <!-- SD card -->
+  <rect x="340" y="298" width="38" height="10" rx="1" fill="#ccc"/>
+  <text x="359" y="307" font-family="monospace" font-size="6" fill="#444" text-anchor="middle">SD</text>
+  <!-- USB-C power -->
+  <rect x="130" y="298" width="20" height="10" rx="3" fill="#333" stroke="#c8ff00" stroke-width="1"/>
+  <!-- LED -->
+  <circle cx="160" cy="100" r="4" fill="#ff3333" opacity="0.9"/>
+  <circle cx="175" cy="100" r="4" fill="#33ff33" opacity="0.9"/>
+  <!-- Label -->
+  <text x="300" y="355" font-family="Arial, sans-serif" font-size="20" fill="#c8ff00" text-anchor="middle" font-weight="bold">Raspberry Pi 4</text>
+  <text x="300" y="378" font-family="Arial, sans-serif" font-size="13" fill="#777" text-anchor="middle">Model B — 4GB RAM</text>
+</svg>
