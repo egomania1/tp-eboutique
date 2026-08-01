@@ -68,13 +68,24 @@ if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === 0) {
     $userId = $_SESSION['user_id'];
     $file   = $_FILES['avatar']; // On stocke les infos du fichier dans une variable pour simplifier
 
-    // On vérifie le type MIME du fichier (type réel du fichier détecté par PHP)
-    // C'est plus fiable que vérifier l'extension car le type MIME ne peut pas être falsifié facilement
-    $typesAutorises = ['image/jpeg', 'image/png', 'image/webp'];
+    // ATTENTION : $file['type'] est l'en-tête Content-Type envoyé par le NAVIGATEUR.
+    // C'est une donnée cliente, donc falsifiable (ex: envoyer un shell.php en déclarant
+    // "image/jpeg" via Postman/curl). Il ne faut jamais s'y fier pour la sécurité.
+    // On vérifie donc à la place l'extension ET le contenu réel du fichier.
+    $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    $extensionsAutorisees = ['jpg', 'jpeg', 'png', 'webp'];
 
-    // in_array() vérifie si le type du fichier est dans la liste autorisée
-    if (!in_array($file['type'], $typesAutorises)) {
+    if (!in_array($extension, $extensionsAutorisees)) {
         $_SESSION['erreur'] = "Format non autorisé. Utilisez JPG, PNG ou WEBP.";
+        header('Location: index.php?page=profile');
+        exit();
+    }
+
+    // getimagesize() lit les vrais octets du fichier pour vérifier qu'il s'agit bien
+    // d'une image valide (contrairement à $file['type'] qui ne fait que lire un en-tête
+    // déclaré par le client). Un fichier PHP renommé en .jpg échouera ce test.
+    if (@getimagesize($file['tmp_name']) === false) {
+        $_SESSION['erreur'] = "Le fichier envoyé n'est pas une image valide.";
         header('Location: index.php?page=profile');
         exit();
     }
